@@ -4,7 +4,7 @@ require 'faker'
 task({ :sample_data => :environment }) do
 
 
-erase_and_start_over = "Y"
+erase_and_start_over = "N"
 
 if erase_and_start_over == "Y"
 
