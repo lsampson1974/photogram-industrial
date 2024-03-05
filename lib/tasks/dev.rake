@@ -1,7 +1,8 @@
 require 'faker'
 
 
-#erase_and_start_over = "Y"
+task({ :sample_data => :environment }) do
+
 
 erase_and_start_over = "N"
 
@@ -17,8 +18,23 @@ end
 
 desc "Fill the database tables with some sample data"
 
-#task({ :sample_data => :environment }) do
-task sample_data: :environment do
+
+
+usernames = Array.new { Faker::Name.first_name }
+
+usernames << "alice"
+usernames << "bob"
+
+usernames.each do |username|
+  User.create(
+    email: "#{username}@example.com",
+    password: "password",
+    username: username.downcase,
+    private: [true, false].sample,
+  )
+end
+
+
   p "Creating sample data"
 
   20.times do
@@ -89,5 +105,8 @@ task sample_data: :environment do
   p "There are now #{Photo.count} photos."
   p "There are now #{Like.count} likes."
   p "There are now #{Comment.count} comments."
+
+
+
 
 end # Of task loop : sample_data: :environment do
